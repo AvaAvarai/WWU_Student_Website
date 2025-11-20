@@ -10,9 +10,6 @@
     <p>Each polyline is a loss values on each interface for one insertion on the amino acid.</p>
     <p>Values are produced purely computationally using Rosetta software.</p><br>
     
-    <button class="update-button" onclick="updateWebsite()">Update Website from Git</button>
-    <div id="update-status"></div>
-    
     <br>
     <p>Amino Acid Alanine (A)</p><br>
     <a href="1brs_interface_bonds_loss_parallel_coordinates/a.png">1brs amino acid a</a><br>
@@ -22,30 +19,5 @@
     <a href="1brs_interface_bonds_loss_parallel_coordinates/d.png">1brs amino acid d</a><br>
     <p>Amino Acid Glutamic Acid (E)</p><br>
     <a href="1brs_interface_bonds_loss_parallel_coordinates/e.png">1brs amino acid e</a>
-    
-    <script>
-        function updateWebsite() {
-            const button = document.querySelector('.update-button');
-            const statusDiv = document.getElementById('update-status');
-            
-            button.disabled = true;
-            statusDiv.style.display = 'block';
-            statusDiv.className = 'status-loading';
-            statusDiv.textContent = 'Updating website... Please wait.';
-            
-            fetch('update.cgi')
-                .then(response => response.text())
-                .then(data => {
-                    statusDiv.className = 'status-success';
-                    statusDiv.textContent = 'Update successful! ' + data;
-                    button.disabled = false;
-                })
-                .catch(error => {
-                    statusDiv.className = 'status-error';
-                    statusDiv.textContent = 'Error updating website: ' + error.message;
-                    button.disabled = false;
-                });
-        }
-    </script>
 </body>
 </html>
