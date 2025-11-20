@@ -1,13 +1,92 @@
 <html>
+<head>
+    <title>Alice Williams Research</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .update-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .update-button:hover {
+            background-color: #45a049;
+        }
+        .update-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #update-status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
 <body>
-<p>Alice Williams Research</p>
-<p>Protein: 1brs</p>
-<p>Parallel Coordinates plot of the hydrogen bonds lost for each amino acid inserted.</p>
-<p>Each polyline is a loss values on each interface for one insertion on the amino acid.</p>
-<p>Values are produced purely computationally using Rosetta software.</p><br>
-<a href="1brs_interface_bonds_loss_parallel_coordinates/a.png">1brs amino acid a</a><br>
-<a href="1brs_interface_bonds_loss_parallel_coordinates/c.png">1brs amino acid c</a><br>
-<a href="1brs_interface_bonds_loss_parallel_coordinates/d.png">1brs amino acid d</a><br>
-<a href="1brs_interface_bonds_loss_parallel_coordinates/e.png">1brs amino acid e</a>
+    <p>Alice Williams Research</p>
+    <p>Protein: 1brs</p>
+    <p>Parallel Coordinates plot of the hydrogen bonds lost for each amino acid inserted.</p>
+    <p>Each polyline is a loss values on each interface for one insertion on the amino acid.</p>
+    <p>Values are produced purely computationally using Rosetta software.</p><br>
+    
+    <button class="update-button" onclick="updateWebsite()">Update Website from Git</button>
+    <div id="update-status"></div>
+    
+    <br>
+    <a href="1brs_interface_bonds_loss_parallel_coordinates/a.png">1brs amino acid a</a><br>
+    <a href="1brs_interface_bonds_loss_parallel_coordinates/c.png">1brs amino acid c</a><br>
+    <a href="1brs_interface_bonds_loss_parallel_coordinates/d.png">1brs amino acid d</a><br>
+    <a href="1brs_interface_bonds_loss_parallel_coordinates/e.png">1brs amino acid e</a>
+    
+    <script>
+        function updateWebsite() {
+            const button = document.querySelector('.update-button');
+            const statusDiv = document.getElementById('update-status');
+            
+            button.disabled = true;
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status-loading';
+            statusDiv.textContent = 'Updating website... Please wait.';
+            
+            fetch('update.cgi')
+                .then(response => response.text())
+                .then(data => {
+                    statusDiv.className = 'status-success';
+                    statusDiv.textContent = 'Update successful! ' + data;
+                    button.disabled = false;
+                })
+                .catch(error => {
+                    statusDiv.className = 'status-error';
+                    statusDiv.textContent = 'Error updating website: ' + error.message;
+                    button.disabled = false;
+                });
+        }
+    </script>
 </body>
 </html>
