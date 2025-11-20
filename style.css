@@ -1,8 +1,16 @@
+html {
+    background-color: #d3d3d3;
+    min-height: 100vh;
+}
+
 body {
     font-family: Arial, sans-serif;
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
+    background-color: white;
+    border: 1px solid #d3d3d3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .update-button {
     background-color: #4CAF50;
